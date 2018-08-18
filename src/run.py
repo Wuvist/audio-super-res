@@ -84,10 +84,10 @@ def eval(args):
     with open(args.wav_file_list) as f:
       for line in f:
         try:
-          print line.strip()
+          print(line.strip())
           upsample_wav(line.strip(), args, model)
         except EOFError:
-          print 'WARNING: Error reading file:', line.strip()
+          print('WARNING: Error reading file:', line.strip())
 
 def get_model(args, n_dim, r, from_ckpt=False, train=True):
   """Create a model based on arguments"""  

@@ -78,7 +78,7 @@ def add_data(h5_file, inputfiles, args, save_examples=False):
   hr_patches, lr_patches = list(), list()
 
   for j, file_path in enumerate(file_list):
-    if j % 10 == 0: print '%d/%d' % (j, num_files)
+    if j % 10 == 0:print('%d/%d' % (j, num_files))
 
     # load audio file
     x, fs = librosa.load(file_path, sr=args.sr)
@@ -134,7 +134,7 @@ def add_data(h5_file, inputfiles, args, save_examples=False):
 
   # crop # of patches so that it's a multiple of mini-batch size
   num_patches = len(hr_patches)
-  print num_patches
+  print(num_patches)
   num_to_keep = int(np.floor(num_patches / args.batch_size) * args.batch_size)
   hr_patches = np.array(hr_patches[:num_to_keep])
   lr_patches = np.array(lr_patches[:num_to_keep])
@@ -142,13 +142,13 @@ def add_data(h5_file, inputfiles, args, save_examples=False):
   if save_examples:
     librosa.output.write_wav('example-hr.wav', hr_patches[40][0], fs, norm=False)
     librosa.output.write_wav('example-lr.wav', lr_patches[40][0], fs / args.scale, norm=False)
-    print hr_patches[40].shape
-    print lr_patches[40].shape
-    print hr_patches[40][0][:10]
-    print lr_patches[40][0][:10]
-    print 'two examples saved'
+    print(hr_patches[40].shape)
+    print(lr_patches[40].shape)
+    print(hr_patches[40][0][:10])
+    print(lr_patches[40][0][:10])
+    print('two examples saved')
 
-  print hr_patches.shape
+  print(hr_patches.shape)
 
   # create the hdf5 file
   data_set = h5_file.create_dataset('data', lr_patches.shape, np.float32)
