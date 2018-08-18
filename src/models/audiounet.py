@@ -12,7 +12,7 @@ from keras.layers.core import Activation, Dropout
 from keras.layers.convolutional import Convolution1D
 from keras.layers.normalization import BatchNormalization
 from keras.layers.advanced_activations import LeakyReLU
-from keras.initializations import normal, orthogonal
+from keras.initializers import normal, orthogonal
 
 # ----------------------------------------------------------------------------
 
