@@ -43,7 +43,7 @@ class AudioUNet(Model):
       n_filtersizes = [65, 33, 17,  9,  9,  9,  9, 9, 9]
       downsampling_l = []
 
-      print 'building model...'
+      print('building model...')
 
       # downsampling layers
       for l, nf, fs in zip(range(L), n_filters, n_filtersizes):
@@ -53,7 +53,7 @@ class AudioUNet(Model):
                   subsample_length=2))(x)
           # if l > 0: x = BatchNormalization(mode=2)(x)
           x = LeakyReLU(0.2)(x)
-          print 'D-Block: ', x.get_shape()
+          print('D-Block: ', x.get_shape())
           downsampling_l.append(x)
 
       # bottleneck layer
@@ -78,14 +78,14 @@ class AudioUNet(Model):
           x = SubPixel1D(x, r=2) 
           # (-1, n, 2f)
           x = merge([x, l_in], mode='concat', concat_axis=-1) 
-          print 'U-Block: ', x.get_shape()
+          print('U-Block: ', x.get_shape())
 
       # final conv layer
       with tf.name_scope('lastconv'):
         x = Convolution1D(nb_filter=2, filter_length=9, 
                 activation=None, border_mode='same', init=normal_init)(x)    
         x = SubPixel1D(x, r=2) 
-        print x.get_shape()
+        print(x.get_shape())
 
       g = merge([x, X], mode='sum')
 
