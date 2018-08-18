@@ -68,8 +68,8 @@ class DataSet(object):
         fake_label = [1] + [0] * 9
       else:
         fake_label = 0
-      return [fake_image for _ in xrange(batch_size)], [
-          fake_label for _ in xrange(batch_size)
+      return [fake_image for _ in range(batch_size)], [
+          fake_label for _ in range(batch_size)
       ]
     start = self._index_in_epoch
     # Shuffle for the first epoch
