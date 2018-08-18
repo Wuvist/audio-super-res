@@ -9,7 +9,7 @@ from .layers.subpixel import SubPixel1D, SubPixel1D_v2
 from keras import backend as K
 from keras.layers import merge
 from keras.layers.core import Activation, Dropout
-from keras.layers.convolutional import Convolution1D
+from keras.layers.convolutional import Conv1D
 from keras.layers.normalization import BatchNormalization
 from keras.layers.advanced_activations import LeakyReLU
 from keras.initializers import normal, orthogonal
@@ -48,7 +48,7 @@ class AudioUNet(Model):
       # downsampling layers
       for l, nf, fs in zip(range(L), n_filters, n_filtersizes):
         with tf.name_scope('downsc_conv%d' % l):
-          x = (Convolution1D(nb_filter=nf, filter_length=fs, 
+          x = (Conv1D(filters=nf, kernel_size=fs, 
                   activation=None, border_mode='same', init=orthogonal_init,
                   subsample_length=2))(x)
           # if l > 0: x = BatchNormalization(mode=2)(x)
@@ -58,7 +58,7 @@ class AudioUNet(Model):
 
       # bottleneck layer
       with tf.name_scope('bottleneck_conv'):
-          x = (Convolution1D(nb_filter=n_filters[-1], filter_length=n_filtersizes[-1], 
+          x = (Conv1D(filters=n_filters[-1], kernel_size=n_filtersizes[-1], 
                   activation=None, border_mode='same', init=orthogonal_init,
                   subsample_length=2))(x)
           x = Dropout(p=0.5)(x)
@@ -69,7 +69,7 @@ class AudioUNet(Model):
       for l, nf, fs, l_in in list(zip(range(L), n_filters, n_filtersizes, downsampling_l)).reverse():
         with tf.name_scope('upsc_conv%d' % l):
           # (-1, n/2, 2f)
-          x = (Convolution1D(nb_filter=2*nf, filter_length=fs, 
+          x = (Conv1D(filters=2*nf, kernel_size=fs, 
                   activation=None, border_mode='same', init=orthogonal_init))(x)
           # x = BatchNormalization(mode=2)(x)
           x = Dropout(p=0.5)(x)
@@ -82,7 +82,7 @@ class AudioUNet(Model):
 
       # final conv layer
       with tf.name_scope('lastconv'):
-        x = Convolution1D(nb_filter=2, filter_length=9, 
+        x = Conv1D(filters=2, kernel_size=9, 
                 activation=None, border_mode='same', init=normal_init)(x)    
         x = SubPixel1D(x, r=2) 
         print(x.get_shape())
