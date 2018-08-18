@@ -61,7 +61,7 @@ class AudioUNet(Model):
           x = (Conv1D(filters=n_filters[-1], kernel_size=n_filtersizes[-1], 
                   activation=None, border_mode='same', init=orthogonal_init,
                   subsample_length=2))(x)
-          x = Dropout(p=0.5)(x)
+          x = Dropout(rate=0.5)(x)
           # x = BatchNormalization(mode=2)(x)
           x = LeakyReLU(0.2)(x)
 
@@ -72,7 +72,7 @@ class AudioUNet(Model):
           x = (Conv1D(filters=2*nf, kernel_size=fs, 
                   activation=None, border_mode='same', init=orthogonal_init))(x)
           # x = BatchNormalization(mode=2)(x)
-          x = Dropout(p=0.5)(x)
+          x = Dropout(rate=0.5)(x)
           x = Activation('relu')(x)
           # (-1, n, f)
           x = SubPixel1D(x, r=2) 
