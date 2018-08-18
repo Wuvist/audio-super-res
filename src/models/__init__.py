@@ -1,1 +1,1 @@
-from audiounet import AudioUNet
+from .audiounet import AudioUNet

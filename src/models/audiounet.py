@@ -2,9 +2,9 @@ import numpy as np
 import tensorflow as tf
 
 from scipy import interpolate
-from model import Model, default_opt
+from .model import Model, default_opt
 
-from layers.subpixel import SubPixel1D, SubPixel1D_v2
+from .layers.subpixel import SubPixel1D, SubPixel1D_v2
 
 from keras import backend as K
 from keras.layers import merge

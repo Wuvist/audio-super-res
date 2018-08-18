@@ -6,7 +6,7 @@ import tensorflow as tf
 
 import librosa
 from keras import backend as K
-from dataset import DataSet
+from .dataset import DataSet
 
 # ----------------------------------------------------------------------------
 
