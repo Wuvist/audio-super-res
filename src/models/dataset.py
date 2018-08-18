@@ -3,7 +3,7 @@
 This is stolen from the tensorflow tutorial
 """
 
-import numpy
+import numpy as np
 
 from tensorflow.contrib.learn.python.learn.datasets import base
 from tensorflow.python.framework import dtypes
@@ -74,8 +74,8 @@ class DataSet(object):
     start = self._index_in_epoch
     # Shuffle for the first epoch
     if self._epochs_completed == 0 and start == 0 and shuffle:
-      perm0 = numpy.arange(self._num_examples)
-      numpy.random.shuffle(perm0)
+      perm0 = np.arange(self._num_examples)
+      np.random.shuffle(perm0)
       self._datapoints = self.datapoints[perm0]
       self._labels = self.labels[perm0]
     # Go to the next epoch
@@ -88,8 +88,8 @@ class DataSet(object):
       labels_rest_part = self._labels[start:self._num_examples]
       # Shuffle the data
       if shuffle:
-        perm = numpy.arange(self._num_examples)
-        numpy.random.shuffle(perm)
+        perm = np.arange(self._num_examples)
+        np.random.shuffle(perm)
         self._datapoints = self.datapoints[perm]
         self._labels = self.labels[perm]
       # Start next epoch
@@ -98,7 +98,7 @@ class DataSet(object):
       end = self._index_in_epoch
       datapoints_new_part = self._datapoints[start:end]
       labels_new_part = self._labels[start:end]
-      return numpy.concatenate((datapoints_rest_part, datapoints_new_part), axis=0) , numpy.concatenate((labels_rest_part, labels_new_part), axis=0)
+      return np.concatenate((datapoints_rest_part, datapoints_new_part), axis=0) , numpy.concatenate((labels_rest_part, labels_new_part), axis=0)
     else:
       self._index_in_epoch += batch_size
       end = self._index_in_epoch
