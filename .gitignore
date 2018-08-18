@@ -3,3 +3,4 @@ sftp-config.json
 *.pyc
 data/vctk/VCTK-Corpus/*
 data/vctk/VCTK-Corpus.tar.gz
+*.h5
