@@ -266,7 +266,8 @@ class Model(object):
 
     # this is ugly, but only way I found to get this var after model reload
     g = tf.get_default_graph()
-    k_tensors = [n for n in g.as_graph_def().node if 'keras_learning_phase' in n.name]
+
+    k_tensors = [n for n in g.as_graph_def().node if n.name.endswith("keras_learning_phase")]
     assert len(k_tensors) <= 1
     if k_tensors: 
       k_learning_phase = g.get_tensor_by_name(k_tensors[0].name + ':0')
