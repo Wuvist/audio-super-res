@@ -104,11 +104,13 @@ class AudioUNet(Model):
 # ----------------------------------------------------------------------------
 # helpers
 
-def normal_init(shape, dim_ordering='tf', name=None): 
-  return normal(shape, scale=1e-3, name=name, dim_ordering=dim_ordering)
+def normal_init(shape, dim_ordering='tf', name=None):
+  # return normal(shape, scale=1e-3, name=name, dim_ordering=dim_ordering)
+  return normal()(shape)
 
-def orthogonal_init(shape, dim_ordering='tf', name=None): 
-  return orthogonal(shape, name=name, dim_ordering=dim_ordering)  
+def orthogonal_init(shape, dim_ordering='tf', name=None):
+  # return orthogonal(shape, name=name, dim_ordering=dim_ordering)
+  return orthogonal()(shape)
 
 def spline_up(x_lr, r):
   x_lr = x_lr.flatten()
