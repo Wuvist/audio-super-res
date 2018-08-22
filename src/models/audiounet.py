@@ -77,7 +77,7 @@ class AudioUNet(Model):
           # (-1, n, f)
           x = SubPixel1D(x, r=2) 
           # (-1, n, 2f)
-          x = merge([x, l_in], mode='concat', concat_axis=-1) 
+          x = merge.concatenate([x, l_in])
           print('U-Block: ', x.get_shape())
 
       # final conv layer
@@ -87,7 +87,7 @@ class AudioUNet(Model):
         x = SubPixel1D(x, r=2) 
         print(x.get_shape())
 
-      g = merge([x, X], mode='sum')
+      g = merge.add([x, X])
 
     return g
 
